@@ -21,7 +21,11 @@
     --d:'Barlow Condensed','Arial Narrow',sans-serif;
     --s:'Inter',Arial,sans-serif;
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--line-hi) var(--bg)}
+html::-webkit-scrollbar{width:10px;height:10px}
+html::-webkit-scrollbar-track{background:var(--bg)}
+html::-webkit-scrollbar-thumb{background:var(--line-hi);border:2px solid var(--bg);border-radius:6px}
+html::-webkit-scrollbar-thumb:hover{background:var(--mut)}
 body{
     font:400 15px/1.55 var(--s);
     color:var(--ink);
@@ -53,11 +57,8 @@ header{position:sticky;top:0;z-index:50;background:rgba(244,243,239,.95);backdro
 .hero h1{font:800 clamp(3.6rem,13vw,10.5rem)/.86 var(--d);text-transform:uppercase;letter-spacing:.01em;position:relative}
 .hero p{max-width:52ch;color:#b9b9b4;margin:22px 0 28px;position:relative}
 .btns{display:flex;gap:12px;flex-wrap:wrap;position:relative}
-
-/* HERO CON FOTO */
-.hero.has-photo{background-color:#111;background-size:cover;background-position:center;background-repeat:no-repeat}
-.hero.has-photo::before{display:none}
-.hero.has-photo svg.mark{display:none}
+.hero.has-photo{background-color:#111;background-size:cover;background-position:50% 50%;background-repeat:no-repeat}
+.hero.has-photo::before,.hero.has-photo svg.mark{display:none}
 
 /* ═══════════ BUTTONS ═══════════ */
 .btn{display:inline-block;padding:15px 34px;background:var(--ink);color:#f4f3ef;font:700 .78rem var(--s);letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--ink);transition:.2s;text-align:center}
@@ -128,7 +129,11 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
 .dh{display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid var(--line);font:800 1.6rem var(--d);text-transform:uppercase;letter-spacing:.06em}
 .dh button{font-size:1rem;color:var(--mut)}
 .dh button:hover{color:var(--ink)}
-#items{flex:1;overflow:auto;padding:18px 24px;display:flex;flex-direction:column;gap:16px}
+#items{flex:1;overflow:auto;padding:18px 24px;display:flex;flex-direction:column;gap:16px;scrollbar-width:thin;scrollbar-color:var(--line-hi) transparent}
+#items::-webkit-scrollbar{width:8px}
+#items::-webkit-scrollbar-track{background:transparent}
+#items::-webkit-scrollbar-thumb{background:var(--line-hi);border-radius:4px}
+#items::-webkit-scrollbar-thumb:hover{background:var(--mut)}
 .ci{display:flex;gap:14px;align-items:flex-start}
 .ci img{width:76px;height:96px;object-fit:cover;background:var(--soft);border:1px solid var(--line);flex-shrink:0}
 .ci-info{flex:1;min-width:0;font-size:.85rem}
@@ -140,8 +145,6 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
 .q span{min-width:28px;text-align:center;line-height:28px;font-size:.82rem;font-weight:600}
 .ci-side{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0}
 .ci-side b{font-size:.88rem;white-space:nowrap}
-.ci-x{color:var(--mut);font-size:.78rem;width:24px;height:24px;display:grid;place-items:center;border-radius:50%}
-.ci-x:hover{background:var(--soft);color:var(--ink)}
 .df{padding:20px 24px;border-top:1px solid var(--line);display:grid;gap:10px;background:var(--soft)}
 .tot{display:flex;justify-content:space-between;align-items:baseline;font:700 1.3rem var(--d);text-transform:uppercase;letter-spacing:.04em}
 .tot span:last-child{font-size:1.6rem}
@@ -149,7 +152,11 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
 /* ═══════════ MODALS (light) ═══════════ */
 .modal{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(20,20,19,.72);backdrop-filter:blur(4px)}
 .modal.on{display:flex}
-.mb{background:var(--bg);width:min(94vw,520px);max-height:92dvh;overflow:auto;padding:28px;position:relative;border:1px solid var(--line-hi);box-shadow:0 20px 60px rgba(0,0,0,.22)}
+.mb{background:var(--bg);width:min(94vw,520px);max-height:92dvh;overflow:auto;padding:28px;position:relative;border:1px solid var(--line-hi);box-shadow:0 20px 60px rgba(0,0,0,.22);scrollbar-width:thin;scrollbar-color:var(--line-hi) transparent}
+.mb::-webkit-scrollbar{width:8px}
+.mb::-webkit-scrollbar-track{background:transparent}
+.mb::-webkit-scrollbar-thumb{background:var(--line-hi);border-radius:4px}
+.mb::-webkit-scrollbar-thumb:hover{background:var(--mut)}
 .mb.w{width:min(96vw,940px)}
 .mb h3{font:800 1.8rem var(--d);text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px}
 .x{position:absolute;top:12px;right:14px;font-size:1.05rem;color:var(--mut)}
@@ -182,7 +189,13 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
     border:1px solid rgba(255,255,255,.1);
     color:#e7e9ee;
     box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 80px rgba(255,90,90,.06);
+    scrollbar-width:thin;
+    scrollbar-color:rgba(255,90,90,.35) transparent;
 }
+#am .mb::-webkit-scrollbar{width:8px}
+#am .mb::-webkit-scrollbar-track{background:transparent}
+#am .mb::-webkit-scrollbar-thumb{background:rgba(255,90,90,.35);border-radius:4px}
+#am .mb::-webkit-scrollbar-thumb:hover{background:rgba(255,90,90,.55)}
 #am .mb h3{color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.6);margin-bottom:6px}
 #am .x{color:#8f939f}
 #am .x:hover{color:#fff}
@@ -209,11 +222,90 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
 
 /* hero admin */
 .hero-admin{padding:18px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#1c1f26 0%,#15171d 100%);margin-bottom:18px}
-.hero-admin h4{font:800 1.25rem var(--d);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;color:#fff}
-.hero-admin-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.hero-admin .upload{flex:1;min-width:200px}
+.hero-admin h4{font:800 1.25rem var(--d);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;color:#fff}
+.hero-admin-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.hero-admin .upload{flex:1;min-width:180px}
 .hero-admin .btn.g{width:auto;padding:0 18px;white-space:nowrap}
-.hero-admin-prev{display:none;width:100%;max-height:180px;object-fit:cover;margin-top:10px;border:1px solid rgba(255,255,255,.12)}
+
+.hero-admin-prev-wrap{
+    position:relative;
+    width:100%;
+    background-color:#0d0f13;
+    background-size:cover;
+    background-position:50% 50%;
+    background-repeat:no-repeat;
+    border:1px solid rgba(255,255,255,.12);
+    overflow:hidden;
+    user-select:none;
+    touch-action:none;
+    cursor:default;
+    transition:border-color .2s;
+}
+.hero-admin-prev-wrap.has{cursor:grab}
+.hero-admin-prev-wrap.has:active,.hero-admin-prev-wrap.dragging{cursor:grabbing;border-color:rgba(255,90,90,.55)}
+.hero-admin-prev-wrap::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(8,8,8,.18) 0%,rgba(8,8,8,.55) 55%,rgba(8,8,8,.92) 100%);
+    pointer-events:none;
+    display:none;
+}
+.hero-admin-prev-wrap.has::after{display:block}
+.hero-admin-prev-wrap::before{
+    content:"Sin foto · fondo oscuro";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font:600 .72rem var(--s);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#8f939f;
+    text-align:center;
+    padding:0 20px;
+}
+.hero-admin-prev-wrap.has::before{display:none}
+.hero-prev-overlay{
+    position:absolute;
+    left:0;right:0;bottom:0;
+    padding:18px 20px;
+    z-index:2;
+    pointer-events:none;
+    color:#f4f3ef;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+.hero-prev-overlay .hpo-small{
+    font:600 .55rem var(--s);
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:#cf5a3f;
+}
+.hero-prev-overlay .hpo-title{
+    font:800 clamp(1.2rem,3vw,2.2rem)/.9 var(--d);
+    text-transform:uppercase;
+    letter-spacing:.01em;
+    text-shadow:0 1px 2px rgba(0,0,0,.5);
+}
+.hero-drag-hint{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:10px;
+    font:600 .7rem var(--s);
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:#ff9a9a;
+}
+.hero-drag-hint::before{
+    content:"⇄";
+    font-size:1rem;
+    color:#ff6b6b;
+}
+.hero-drag-hint.hide{display:none}
 
 /* new category form */
 .acat-new{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
@@ -253,6 +345,28 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
 #am .ri b{display:block;text-transform:uppercase;font-size:.8rem;letter-spacing:.03em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #am .ri small{color:#8f939f;font-size:.72rem}
 
+/* ═══════════ CONFIRM MODAL (dark) ═══════════ */
+#cm{background:rgba(5,6,9,.88)}
+#cm .mb{
+    max-width:440px;
+    padding:26px 26px 24px;
+    background:
+        linear-gradient(180deg,rgba(255,255,255,.035) 0%,transparent 22%),
+        linear-gradient(180deg,#171a20 0%,#0d0f13 100%);
+    border:1px solid rgba(255,255,255,.12);
+    color:#e7e9ee;
+    box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 80px rgba(255,90,90,.08);
+}
+#cm h3{font:800 1.5rem var(--d);text-transform:uppercase;letter-spacing:.04em;color:#fff;margin-bottom:10px}
+#cmMsg{color:#b9bdc8;font-size:.94rem;line-height:1.6;margin-bottom:22px}
+#cmMsg b{color:#ff8a8a;font-weight:700}
+#cm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#cm .btn{width:100%}
+#cm .btn.g{background:transparent;color:#d7dae1;border-color:rgba(255,255,255,.18)}
+#cm .btn.g:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.3);color:#fff}
+#cm .btn.k{background:#c0392b;border-color:#c0392b;color:#fff}
+#cm .btn.k:hover{background:#a3301f;border-color:#a3301f;color:#fff}
+
 /* ═══════════ RESPONSIVE ═══════════ */
 @media(max-width:820px){
     .nav{display:none}
@@ -269,6 +383,7 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
     .lb-actions .btn{width:100%}
     .fg{grid-template-columns:1fr}
     .fb{flex-direction:column;align-items:flex-start;gap:8px}
+    #cm-actions{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -382,13 +497,19 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
       <div id="viewCats">
         <div class="hero-admin">
           <h4>Imagen del hero</h4>
-          <p class="admin-sub" style="margin-bottom:12px">Reemplaza el fondo gris oscuro de la portada.</p>
+          <p class="admin-sub" style="margin-bottom:12px">Reemplaza el fondo oscuro de la portada. Arrastrá para ajustar el encuadre.</p>
           <div class="hero-admin-row">
             <input type="file" id="heroFile" accept="image/*" hidden>
             <label for="heroFile" class="upload" id="heroUpload"><span id="heroUploadText">Subir foto</span></label>
             <button type="button" class="btn g" id="heroClear">Quitar foto</button>
           </div>
-          <img id="heroPrev" class="hero-admin-prev" alt="Vista previa del hero">
+          <div class="hero-admin-prev-wrap" id="heroPrevWrap">
+            <div class="hero-prev-overlay">
+              <div class="hpo-small">Fortius Indumentaria</div>
+              <div class="hpo-title">Vestí tu equipo</div>
+            </div>
+          </div>
+          <div class="hero-drag-hint hide" id="heroDragHint">Arrastrá la imagen para encuadrar</div>
         </div>
 
         <form id="catForm" class="acat-new">
@@ -432,6 +553,18 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
   </div>
 </div>
 
+<!-- ═══════════ CONFIRM MODAL ═══════════ -->
+<div class="modal" id="cm">
+  <div class="mb">
+    <h3 id="cmTitle">Confirmar</h3>
+    <p id="cmMsg"></p>
+    <div id="cm-actions">
+      <button type="button" class="btn g" id="cmCancel">Cancelar</button>
+      <button type="button" class="btn k" id="cmOk">Eliminar</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -444,7 +577,7 @@ const URL_="https://zzrmqidzfjqrmrictels.supabase.co",
       TBL="fortius_content",
       BUCKET="fortius";
 
-const K={c:"fortius_categories_v1",p:"fortius_products_v1",o:"fortius_orders_v1",h:"fortius_hero_v1"},
+const K={c:"fortius_categories_v1",p:"fortius_products_v1",o:"fortius_orders_v1",h:"fortius_hero_v2"},
       LS_CART="fortius_cart",
       LS_S="fortius_admin_session",
       AU="DAMI", AP="1234";
@@ -460,7 +593,10 @@ let sb=null;
 try{ if(window.supabase) sb=supabase.createClient(URL_,KEY); }catch(e){}
 
 let cats=[], prods=[], orders=[], cart=[];
-let editId=null, img="", heroImg="", adminCat=null, cur=null, tt;
+let editId=null, img="", adminCat=null, cur=null, tt;
+let heroData={img:"",x:50,y:50};
+let heroDrag=null;
+let cmResolver=null;
 
 const $=i=>document.getElementById(i);
 const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
@@ -517,16 +653,18 @@ const defProds=()=>[
 const sorted=c=>prods.filter(p=>p.category===c).sort((a,b)=>(a.sort||0)-(b.sort||0));
 
 /* ---------- HERO ---------- */
+function heroLayer(url){
+    const safe=String(url).replace(/["\\]/g,"\\$&");
+    return "linear-gradient(180deg,rgba(8,8,8,.18) 0%,rgba(8,8,8,.55) 55%,rgba(8,8,8,.92) 100%), url(\""+safe+"\")";
+}
 function applyHero(){
     const h=$("hero");
     if(!h) return;
-    if(heroImg){
+    if(heroData.img){
         h.classList.add("has-photo");
-        const safe=String(heroImg).replace(/["\\]/g,"\\$&");
-        h.style.backgroundImage=
-            "linear-gradient(180deg,rgba(8,8,8,.18) 0%,rgba(8,8,8,.55) 55%,rgba(8,8,8,.92) 100%), url(\""+safe+"\")";
+        h.style.backgroundImage=heroLayer(heroData.img);
         h.style.backgroundSize="cover";
-        h.style.backgroundPosition="center";
+        h.style.backgroundPosition=heroData.x+"% "+heroData.y+"%";
         h.style.backgroundRepeat="no-repeat";
     }else{
         h.classList.remove("has-photo");
@@ -536,19 +674,47 @@ function applyHero(){
         h.style.backgroundRepeat="";
     }
 }
-function renderHeroAdmin(){
-    const p=$("heroPrev");
-    if(!p) return;
-    if(heroImg){
-        p.src=heroImg;
-        p.style.display="block";
+function updateHeroPrevAspect(){
+    const wrap=$("heroPrevWrap");
+    if(!wrap) return;
+    const vw=window.innerWidth||1;
+    const vh=window.innerHeight||1;
+    let ratio;
+    if(vw<700){
+        ratio=4/5;
     }else{
-        p.removeAttribute("src");
-        p.style.display="none";
+        ratio=vw/(vh*0.82);
+        if(!Number.isFinite(ratio)) ratio=16/9;
+        ratio=Math.max(1.4,Math.min(2.4,ratio));
     }
-    $("heroUploadText").textContent=heroImg?"Cambiar foto":"Subir foto";
-    $("heroUpload").classList.toggle("has",!!heroImg);
-    $("heroClear").style.display=heroImg?"":"none";
+    wrap.style.aspectRatio=String(ratio);
+}
+function updateHeroPreview(){
+    const wrap=$("heroPrevWrap");
+    const hint=$("heroDragHint");
+    const btn=$("heroUpload");
+    const txt=$("heroUploadText");
+    const clr=$("heroClear");
+    if(!wrap) return;
+    if(heroData.img){
+        wrap.classList.add("has");
+        wrap.style.backgroundImage=heroLayer(heroData.img);
+        wrap.style.backgroundSize="cover";
+        wrap.style.backgroundPosition=heroData.x+"% "+heroData.y+"%";
+        wrap.style.backgroundRepeat="no-repeat";
+        hint.classList.remove("hide");
+        btn.classList.add("has");
+        txt.textContent="Cambiar foto";
+        clr.style.display="";
+    }else{
+        wrap.classList.remove("has");
+        wrap.style.backgroundImage="";
+        wrap.style.backgroundPosition="";
+        hint.classList.add("hide");
+        btn.classList.remove("has");
+        txt.textContent="Subir foto";
+        clr.style.display="none";
+    }
 }
 
 /* ---------- CARRITO ---------- */
@@ -633,11 +799,33 @@ const toast=m=>{
     clearTimeout(tt);
     tt=setTimeout(()=>e.classList.remove("on"),2000);
 };
-const lock=v=>document.body.style.overflow=v?"hidden":"";
+function lock(v){
+    if(v){ document.body.style.overflow="hidden"; return; }
+    const anyOpen=!!document.querySelector(".modal.on") || $("drawer").classList.contains("on");
+    document.body.style.overflow=anyOpen?"hidden":"";
+}
 function openCart(){renderCart();$("ov").classList.add("on");$("drawer").classList.add("on");lock(1)}
 function closeCart(){$("ov").classList.remove("on");$("drawer").classList.remove("on");lock(0)}
 const mo=id=>{$(id).classList.add("on");lock(1)};
 const mc=id=>{$(id).classList.remove("on");lock(0)};
+
+/* ---------- CONFIRM MODAL ---------- */
+function confirmDo(opts){
+    return new Promise(res=>{
+        cmResolver=res;
+        $("cmTitle").textContent=opts.title||"Confirmar";
+        $("cmMsg").innerHTML=opts.message||"";
+        $("cmOk").textContent=opts.confirm||"Eliminar";
+        $("cm").classList.add("on");
+        lock(1);
+    });
+}
+function closeConfirm(v){
+    const r=cmResolver; cmResolver=null;
+    $("cm").classList.remove("on");
+    lock(0);
+    if(r) r(v);
+}
 
 /* ---------- LIGHTBOX ---------- */
 function openLb(id){
@@ -716,7 +904,8 @@ function showCats(){
     adminCat=null;
     $("viewCats").style.display="";
     $("viewItems").style.display="none";
-    renderHeroAdmin();
+    updateHeroPrevAspect();
+    updateHeroPreview();
     renderCats();
 }
 
@@ -773,14 +962,15 @@ function resetForm(){
     renderItems();
 }
 
-function compress(f){
+function compress(f,maxW){
+    maxW=maxW||1000;
     return new Promise((res,rej)=>{
         const r=new FileReader();
         r.onload=e=>{
             const i=new Image();
             i.onload=()=>{
                 let w=i.naturalWidth,h=i.naturalHeight;
-                if(w>1000){h=Math.round(h*1000/w);w=1000}
+                if(w>maxW){h=Math.round(h*maxW/w);w=maxW}
                 const c=document.createElement("canvas");
                 c.width=w;c.height=h;
                 const x=c.getContext("2d");
@@ -803,6 +993,7 @@ async function saveProd(ev){
     const cat=$("pc").value;
     if(!t||!img||!(pr>=0)) return toast("Completá título, imagen y precio");
 
+    const wasEdit=!!editId;
     const b=$("psave");
     b.disabled=true; b.textContent="Guardando…";
 
@@ -833,11 +1024,50 @@ async function saveProd(ev){
     resetForm();
     renderStore();
     renderCart();
-    toast(editId?"Producto actualizado":"Producto guardado");
+    toast(wasEdit?"Producto actualizado":"Producto guardado");
 }
 
-function confirmDo(m){ return Promise.resolve(window.confirm(m)); }
+/* ═══════════ HERO DRAG ═══════════ */
+function heroGetXY(e){
+    if(e.touches && e.touches[0]) return {x:e.touches[0].clientX, y:e.touches[0].clientY};
+    return {x:e.clientX, y:e.clientY};
+}
+function heroStart(e){
+    if(!heroData.img) return;
+    const wrap=$("heroPrevWrap");
+    if(!wrap) return;
+    const p=heroGetXY(e);
+    heroDrag={
+        px:p.x, py:p.y,
+        sx:heroData.x, sy:heroData.y,
+        w:wrap.clientWidth||1,
+        h:wrap.clientHeight||1
+    };
+    wrap.classList.add("dragging");
+    if(e.cancelable) e.preventDefault();
+}
+function heroMove(e){
+    if(!heroDrag) return;
+    const p=heroGetXY(e);
+    const dx=p.x-heroDrag.px;
+    const dy=p.y-heroDrag.py;
+    let nx=heroDrag.sx-(dx/heroDrag.w)*100;
+    let ny=heroDrag.sy-(dy/heroDrag.h)*100;
+    heroData.x=Math.max(0,Math.min(100,nx));
+    heroData.y=Math.max(0,Math.min(100,ny));
+    updateHeroPreview();
+    applyHero();
+    if(e.cancelable) e.preventDefault();
+}
+async function heroEnd(){
+    if(!heroDrag) return;
+    heroDrag=null;
+    const wrap=$("heroPrevWrap");
+    if(wrap) wrap.classList.remove("dragging");
+    await save(K.h,heroData);
+}
 
+/* ═══════════ ADMIN CLICK ═══════════ */
 async function adminClick(e){
     const t=e.target.closest("button"); if(!t) return;
     const d=t.dataset;
@@ -846,12 +1076,17 @@ async function adminClick(e){
         showItems(d.vc);
     }
     else if(d.dc){
-        if(prods.some(p=>p.category===d.dc)) return toast("Tiene productos");
         const c=cats.find(x=>x.id===d.dc); if(!c) return;
-        if(!await confirmDo('¿Eliminar "'+c.name+'"?')) return;
+        const n=prods.filter(p=>p.category===d.dc).length;
+        const message = n>0
+            ? '¿Eliminar la categoría <b>'+esc(c.name)+'</b> y sus <b>'+n+' producto'+(n===1?'':'s')+'</b>?<br><br>Esta acción no se puede deshacer.'
+            : '¿Eliminar la categoría <b>'+esc(c.name)+'</b>?';
+        const ok=await confirmDo({title:"Eliminar categoría", message:message, confirm:"Eliminar"});
+        if(!ok) return;
         cats=cats.filter(x=>x.id!==d.dc);
-        await save(K.c,cats);
-        renderCats();renderStore();
+        prods=prods.filter(p=>p.category!==d.dc);
+        await Promise.all([save(K.c,cats), save(K.p,prods)]);
+        renderCats();renderStore();renderCart();
         toast("Categoría eliminada");
     }
     else if(d.up||d.dn){
@@ -884,7 +1119,12 @@ async function adminClick(e){
     }
     else if(d.dp){
         const p=prods.find(x=>x.id===d.dp); if(!p) return;
-        if(!await confirmDo('¿Eliminar "'+p.title+'"?')) return;
+        const ok=await confirmDo({
+            title:"Eliminar producto",
+            message:'¿Eliminar <b>'+esc(p.title)+'</b>?<br><br>Esta acción no se puede deshacer.',
+            confirm:"Eliminar"
+        });
+        if(!ok) return;
         prods=prods.filter(x=>x.id!==d.dp);
         await save(K.p,prods);
         if(editId===d.dp) resetForm(); else renderItems();
@@ -916,7 +1156,12 @@ function bind(){
         b.onclick=()=>{b.closest(".modal").classList.remove("on");lock(0)};
     });
     document.querySelectorAll(".modal").forEach(m=>{
-        m.onclick=e=>{if(e.target===m){m.classList.remove("on");lock(0)}};
+        m.onclick=e=>{
+            if(e.target!==m) return;
+            if(m.id==="cm"){ closeConfirm(false); return; }
+            m.classList.remove("on");
+            lock(0);
+        };
     });
 
     $("adminTrigger").onclick=openAdmin;
@@ -962,65 +1207,107 @@ function bind(){
         }).catch(x=>toast(x.message));
     };
 
-    /* HERO FOTO */
+    /* HERO UPLOAD */
     $("heroFile").onchange=e=>{
         const f=e.target.files[0];
         if(!f) return;
         toast("Procesando foto…");
-        compress(f).then(async d=>{
+        compress(f,1800).then(async d=>{
             $("heroUploadText").textContent="Subiendo…";
             let url=d;
             try{
                 url=await upImg(d);
             }catch(err){
                 toast("Error subiendo foto");
-                renderHeroAdmin();
+                updateHeroPreview();
                 return;
             }
-            heroImg=url;
-            const ok=await save(K.h,heroImg);
+            heroData.img=url;
+            heroData.x=50;
+            heroData.y=50;
+            const ok=await save(K.h,heroData);
             if(!ok){
                 toast("Error al guardar foto");
+                updateHeroPreview();
                 return;
             }
             applyHero();
-            renderHeroAdmin();
+            updateHeroPreview();
             toast("Foto del hero actualizada");
         }).catch(err=>{
             toast(err.message||"Error");
-            renderHeroAdmin();
+            updateHeroPreview();
         });
     };
 
+    /* HERO CLEAR */
     $("heroClear").onclick=async()=>{
-        if(!heroImg) return;
-        if(!await confirmDo("¿Quitar la foto del hero?")) return;
-        heroImg="";
-        await save(K.h,"");
+        if(!heroData.img) return;
+        const ok=await confirmDo({
+            title:"Quitar foto del hero",
+            message:'¿Quitar la foto y volver al fondo oscuro por defecto?',
+            confirm:"Quitar"
+        });
+        if(!ok) return;
+        heroData={img:"",x:50,y:50};
+        await save(K.h,heroData);
         applyHero();
-        renderHeroAdmin();
+        updateHeroPreview();
         toast("Foto quitada");
     };
 
+    /* HERO DRAG */
+    const wrap=$("heroPrevWrap");
+    if(wrap){
+        wrap.addEventListener("mousedown",heroStart);
+        wrap.addEventListener("touchstart",heroStart,{passive:false});
+        window.addEventListener("mousemove",heroMove);
+        window.addEventListener("touchmove",heroMove,{passive:false});
+        window.addEventListener("mouseup",heroEnd);
+        window.addEventListener("touchend",heroEnd);
+        window.addEventListener("touchcancel",heroEnd);
+    }
+
+    /* CONFIRM MODAL */
+    $("cmOk").onclick=()=>closeConfirm(true);
+    $("cmCancel").onclick=()=>closeConfirm(false);
+
+    /* RESIZE */
+    window.addEventListener("resize",()=>{
+        if($("am").classList.contains("on")) updateHeroPrevAspect();
+    });
+
     document.onkeydown=e=>{
-        if(e.key==="Escape"){
-            closeCart();
-            document.querySelectorAll(".modal.on").forEach(m=>m.classList.remove("on"));
-            lock(0);
-        }
+        if(e.key!=="Escape") return;
+        if($("cm").classList.contains("on")){ closeConfirm(false); return; }
+        closeCart();
+        document.querySelectorAll(".modal.on").forEach(m=>m.classList.remove("on"));
+        lock(0);
     };
 }
 
 /* ═══════════ INIT ═══════════ */
 (async function init(){
     cart=loadCart();
+
     const c=await load(K.c,null), p=await load(K.p,null), o=await load(K.o,null), h=await load(K.h,null);
     cats=Array.isArray(c)&&c.length?c:DEF.map(x=>({...x}));
     prods=Array.isArray(p)&&p.length?p:defProds();
     orders=Array.isArray(o)?o:[];
-    heroImg=typeof h==="string"?h:"";
+
+    if(typeof h==="string"){
+        heroData={img:h,x:50,y:50};
+    }else if(h && typeof h==="object"){
+        heroData={
+            img:typeof h.img==="string"?h.img:"",
+            x:typeof h.x==="number"?h.x:50,
+            y:typeof h.y==="number"?h.y:50
+        };
+    }
+
     bind();
     applyHero();
+    updateHeroPrevAspect();
     renderStore();
     renderCart();
 })();
