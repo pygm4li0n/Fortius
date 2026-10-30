@@ -79,15 +79,60 @@ header{position:sticky;top:0;z-index:50;background:rgba(244,243,239,.95);backdro
 .tile span{position:relative;z-index:1;display:block;font:700 2.1rem/1 var(--d);text-transform:uppercase;letter-spacing:.04em}
 .tile i{position:relative;z-index:1;display:block;font:600 .7rem var(--s);letter-spacing:.16em;margin-top:6px;font-style:normal;text-decoration:underline;text-underline-offset:4px}
 
-/* ═══════════ ABOUT / FEATURES ═══════════ */
+/* ═══════════ ABOUT ═══════════ */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);padding:clamp(56px,9vw,120px) clamp(16px,4vw,48px);border-bottom:1px solid var(--line)}
 .about h2{font:800 clamp(2.4rem,6vw,4.6rem)/.92 var(--d);text-transform:uppercase}
 .about p{color:#444;margin-bottom:14px;max-width:58ch}
-.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-bottom:1px solid var(--line)}
-.feat div{padding:34px clamp(16px,3vw,40px);border-right:1px solid var(--line)}
+
+/* ═══════════ FEATURES — DARK BAND ═══════════ */
+.feat{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    background:
+        linear-gradient(180deg,rgba(255,255,255,.03) 0%,transparent 28%),
+        linear-gradient(180deg,#1c1c1c 0%,#131313 100%);
+    border-top:1px solid #2a2a2a;
+    border-bottom:1px solid #2a2a2a;
+    position:relative;
+}
+.feat::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent 0%,var(--acc) 30%,var(--acc) 70%,transparent 100%);
+    opacity:.75;
+    pointer-events:none;
+}
+.feat div{
+    padding:38px clamp(18px,3vw,42px);
+    border-right:1px solid rgba(255,255,255,.07);
+    position:relative;
+    transition:background .25s ease;
+}
+.feat div::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;height:2px;width:0;
+    background:var(--acc);
+    transition:width .35s ease;
+}
+.feat div:hover{background:rgba(255,255,255,.03)}
+.feat div:hover::before{width:100%}
 .feat div:last-child{border-right:0}
-.feat b{display:block;font:700 1.4rem var(--d);text-transform:uppercase;letter-spacing:.05em}
-.feat span{color:var(--mut);font-size:.88rem}
+.feat b{
+    display:block;
+    font:700 1.4rem var(--d);
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:#f4f3ef;
+    margin-bottom:6px;
+}
+.feat span{
+    display:block;
+    color:#a9a9a4;
+    font-size:.88rem;
+    line-height:1.45;
+}
 
 /* ═══════════ STORE ═══════════ */
 .sec{padding:clamp(40px,6vw,80px) clamp(16px,4vw,48px) 20px}
@@ -374,7 +419,7 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
     .about,.fg,.lb{grid-template-columns:1fr}
     .hero svg.mark{display:none}
     .hero::before{right:-30vw}
-    .feat div{border-right:0;border-bottom:1px solid var(--line)}
+    .feat div{border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}
     .feat div:last-child{border-bottom:0}
     #am .ag{grid-template-columns:1fr}
 }
