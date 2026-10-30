@@ -54,6 +54,11 @@ header{position:sticky;top:0;z-index:50;background:rgba(244,243,239,.95);backdro
 .hero p{max-width:52ch;color:#b9b9b4;margin:22px 0 28px;position:relative}
 .btns{display:flex;gap:12px;flex-wrap:wrap;position:relative}
 
+/* HERO CON FOTO */
+.hero.has-photo{background-color:#111;background-size:cover;background-position:center;background-repeat:no-repeat}
+.hero.has-photo::before{display:none}
+.hero.has-photo svg.mark{display:none}
+
 /* ═══════════ BUTTONS ═══════════ */
 .btn{display:inline-block;padding:15px 34px;background:var(--ink);color:#f4f3ef;font:700 .78rem var(--s);letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--ink);transition:.2s;text-align:center}
 .btn:hover{background:transparent;color:var(--ink)}
@@ -202,6 +207,14 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
 .back-btn{padding:8px 16px;border:1px solid rgba(255,255,255,.14);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:#d7dae1;background:#1e2129;transition:.18s}
 .back-btn:hover{border-color:#ff6b6b;color:#fff}
 
+/* hero admin */
+.hero-admin{padding:18px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#1c1f26 0%,#15171d 100%);margin-bottom:18px}
+.hero-admin h4{font:800 1.25rem var(--d);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;color:#fff}
+.hero-admin-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hero-admin .upload{flex:1;min-width:200px}
+.hero-admin .btn.g{width:auto;padding:0 18px;white-space:nowrap}
+.hero-admin-prev{display:none;width:100%;max-height:180px;object-fit:cover;margin-top:10px;border:1px solid rgba(255,255,255,.12)}
+
 /* new category form */
 .acat-new{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
 .acat-new input{flex:1;min-width:150px}
@@ -269,7 +282,7 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
   <button class="cartbtn" id="cartToggle">Carrito <b id="cartCount">0</b></button>
 </header>
 
-<section class="hero">
+<section class="hero" id="hero">
   <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 10 Q26 18 31 44 Q31 56 32 58 Q33 56 33 44 Q38 18 56 10 Q54 30 38 40 Q34 44 32 52 Q30 44 26 40 Q10 30 8 10Z" fill="#fff"/></svg>
   <small>Fortius Indumentaria</small>
   <h1>Vestí<br>tu equipo</h1>
@@ -363,10 +376,21 @@ footer{background:var(--ink);color:#f4f3ef;margin-top:60px;padding:clamp(40px,6v
 
     <div id="panel" style="display:none">
       <h3>Administración</h3>
-      <p class="admin-sub">Catálogo · categorías y productos</p>
+      <p class="admin-sub">Catálogo · categorías, productos y portada</p>
 
       <!-- vista categorías -->
       <div id="viewCats">
+        <div class="hero-admin">
+          <h4>Imagen del hero</h4>
+          <p class="admin-sub" style="margin-bottom:12px">Reemplaza el fondo gris oscuro de la portada.</p>
+          <div class="hero-admin-row">
+            <input type="file" id="heroFile" accept="image/*" hidden>
+            <label for="heroFile" class="upload" id="heroUpload"><span id="heroUploadText">Subir foto</span></label>
+            <button type="button" class="btn g" id="heroClear">Quitar foto</button>
+          </div>
+          <img id="heroPrev" class="hero-admin-prev" alt="Vista previa del hero">
+        </div>
+
         <form id="catForm" class="acat-new">
           <input id="cn" placeholder="Nueva categoría" required>
           <input id="cd" placeholder="Descripción">
@@ -420,7 +444,7 @@ const URL_="https://zzrmqidzfjqrmrictels.supabase.co",
       TBL="fortius_content",
       BUCKET="fortius";
 
-const K={c:"fortius_categories_v1",p:"fortius_products_v1",o:"fortius_orders_v1"},
+const K={c:"fortius_categories_v1",p:"fortius_products_v1",o:"fortius_orders_v1",h:"fortius_hero_v1"},
       LS_CART="fortius_cart",
       LS_S="fortius_admin_session",
       AU="DAMI", AP="1234";
@@ -436,7 +460,7 @@ let sb=null;
 try{ if(window.supabase) sb=supabase.createClient(URL_,KEY); }catch(e){}
 
 let cats=[], prods=[], orders=[], cart=[];
-let editId=null, img="", adminCat=null, cur=null, tt;
+let editId=null, img="", heroImg="", adminCat=null, cur=null, tt;
 
 const $=i=>document.getElementById(i);
 const esc=v=>String(v==null?"":v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
@@ -491,6 +515,41 @@ const defProds=()=>[
 ].map((a,i)=>({id:uid(),category:a[0],title:a[1],desc:a[2],price:a[3],img:ph(a[1]),sort:i}));
 
 const sorted=c=>prods.filter(p=>p.category===c).sort((a,b)=>(a.sort||0)-(b.sort||0));
+
+/* ---------- HERO ---------- */
+function applyHero(){
+    const h=$("hero");
+    if(!h) return;
+    if(heroImg){
+        h.classList.add("has-photo");
+        const safe=String(heroImg).replace(/["\\]/g,"\\$&");
+        h.style.backgroundImage=
+            "linear-gradient(180deg,rgba(8,8,8,.18) 0%,rgba(8,8,8,.55) 55%,rgba(8,8,8,.92) 100%), url(\""+safe+"\")";
+        h.style.backgroundSize="cover";
+        h.style.backgroundPosition="center";
+        h.style.backgroundRepeat="no-repeat";
+    }else{
+        h.classList.remove("has-photo");
+        h.style.backgroundImage="";
+        h.style.backgroundSize="";
+        h.style.backgroundPosition="";
+        h.style.backgroundRepeat="";
+    }
+}
+function renderHeroAdmin(){
+    const p=$("heroPrev");
+    if(!p) return;
+    if(heroImg){
+        p.src=heroImg;
+        p.style.display="block";
+    }else{
+        p.removeAttribute("src");
+        p.style.display="none";
+    }
+    $("heroUploadText").textContent=heroImg?"Cambiar foto":"Subir foto";
+    $("heroUpload").classList.toggle("has",!!heroImg);
+    $("heroClear").style.display=heroImg?"":"none";
+}
 
 /* ---------- CARRITO ---------- */
 function loadCart(){
@@ -657,6 +716,7 @@ function showCats(){
     adminCat=null;
     $("viewCats").style.display="";
     $("viewItems").style.display="none";
+    renderHeroAdmin();
     renderCats();
 }
 
@@ -902,6 +962,46 @@ function bind(){
         }).catch(x=>toast(x.message));
     };
 
+    /* HERO FOTO */
+    $("heroFile").onchange=e=>{
+        const f=e.target.files[0];
+        if(!f) return;
+        toast("Procesando foto…");
+        compress(f).then(async d=>{
+            $("heroUploadText").textContent="Subiendo…";
+            let url=d;
+            try{
+                url=await upImg(d);
+            }catch(err){
+                toast("Error subiendo foto");
+                renderHeroAdmin();
+                return;
+            }
+            heroImg=url;
+            const ok=await save(K.h,heroImg);
+            if(!ok){
+                toast("Error al guardar foto");
+                return;
+            }
+            applyHero();
+            renderHeroAdmin();
+            toast("Foto del hero actualizada");
+        }).catch(err=>{
+            toast(err.message||"Error");
+            renderHeroAdmin();
+        });
+    };
+
+    $("heroClear").onclick=async()=>{
+        if(!heroImg) return;
+        if(!await confirmDo("¿Quitar la foto del hero?")) return;
+        heroImg="";
+        await save(K.h,"");
+        applyHero();
+        renderHeroAdmin();
+        toast("Foto quitada");
+    };
+
     document.onkeydown=e=>{
         if(e.key==="Escape"){
             closeCart();
@@ -914,11 +1014,13 @@ function bind(){
 /* ═══════════ INIT ═══════════ */
 (async function init(){
     cart=loadCart();
-    const c=await load(K.c,null), p=await load(K.p,null), o=await load(K.o,null);
+    const c=await load(K.c,null), p=await load(K.p,null), o=await load(K.o,null), h=await load(K.h,null);
     cats=Array.isArray(c)&&c.length?c:DEF.map(x=>({...x}));
     prods=Array.isArray(p)&&p.length?p:defProds();
     orders=Array.isArray(o)?o:[];
+    heroImg=typeof h==="string"?h:"";
     bind();
+    applyHero();
     renderStore();
     renderCart();
 })();
